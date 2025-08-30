@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Award 3D Viewer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>" />
+</head>
+<body>
+  <div id="container">
+    <!-- Left panel: 3D canvas -->
+    <div id="canvas-container">
+      <canvas id="three-canvas"></canvas>
+      <div id="loading">Loading 3D model...</div>
+    </div>
+    
+    <!-- Right panel: controls -->
+    <div id="controls-panel">
+      <h2>Award Viewer</h2>
+      
+      <div class="control-group">
+        <label for="angle-slider">View Angle:</label>
+        <input 
+          type="range" 
+          id="angle-slider" 
+          min="0" 
+          max="4" 
+          value="0" 
+          step="1"
+          aria-label="Award rotation angle"
+        />
+        <div id="slide-indicator">Slide 1 of 5</div>
+      </div>
+      
+      <div class="control-group">
+        <button id="prev-btn" aria-label="Previous angle">← Previous</button>
+        <button id="next-btn" aria-label="Next angle">Next →</button>
+      </div>
+      
+      <div class="control-group">
+        <label>
+          <input type="checkbox" id="auto-rotate" />
+          Auto-rotate
+        </label>
+      </div>
+      
+      <div id="info">
+        <p>Use the slider or arrow keys to rotate the award.</p>
+        <p><strong>Controls:</strong></p>
+        <ul>
+          <li>Mouse: Orbit camera</li>
+          <li>Wheel: Zoom</li>
+          <li>← → keys: Previous/Next slide</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Load main.js as ES module - this should work with our server -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>

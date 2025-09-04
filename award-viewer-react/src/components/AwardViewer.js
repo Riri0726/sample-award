@@ -1,7 +1,26 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Text, Environment } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls, useGLTF, Text, Environment, Texture } from '@react-three/drei';
 import * as THREE from 'three';
+
+// Camera Position Logger Component
+function CameraLogger() {
+  const { camera } = useThree();
+  
+  useFrame(() => {
+    // Log camera position every 60 frames (about once per second at 60fps)
+    if (Math.floor(Date.now() / 1000) % 2 === 0) {
+      console.log('Camera Position:', {
+        x: camera.position.x.toFixed(2),
+        y: camera.position.y.toFixed(2),
+        z: camera.position.z.toFixed(2),
+        fov: camera.fov
+      });
+    }
+  });
+  
+  return null;
+}
 
 // Award Model Component
 function AwardModel({ currentAward }) {
@@ -234,12 +253,15 @@ function AwardViewer({ currentSlide, currentAward }) {
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <Canvas
-        camera={{ position: [3, 2, 5], fov: 50 }}
+        camera={{ position: [18.40, 13.42, 31.96], fov: 75 }}
         shadows
         style={{ width: '100%', height: '100%' }}
       >
         {/* Scene background */}
         <color attach="background" args={['#f8fafc']} />
+        
+        {/* Camera Position Logger */}
+        <CameraLogger />
         
         {/* Lighting */}
         <Lighting />
@@ -257,9 +279,9 @@ function AwardViewer({ currentSlide, currentAward }) {
           dampingFactor={0.05}
           maxPolarAngle={Math.PI * 0.75}
           minPolarAngle={Math.PI * 0.25}
-          minDistance={3}
-          maxDistance={12}
-          enablePan={false}
+          minDistance={40}
+          maxDistance={240}
+          enablePan={true}
         />
       </Canvas>
       
